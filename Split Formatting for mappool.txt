@@ -1,0 +1,14 @@
+Formatting for split:
+
+"<tr>\n<td>\n" + split[4] + '</td>\n<td>\n<a href="' + split[3] + '">' + split[1] + "</a>\n</td>\n<td>\n" + split[0] + "</td>\n<td>" + split[2] + "</td>\n<td>" + split[5] + "</td>\n<td>" + split[6] + "</td>\n</tr>\n"
+
+'Wakeshima Kanon', "World's End Girl's Rondo (Asterisk DnB Remix)", "World's End", 'https://osu.ppy.sh/s/301703', 'Tiebreaker', '5:40', '5.27'
+
+
+split[0] = Artist
+split[1] = Title
+split[2] = Difficulty
+split[3] = Song Link
+split[4] = Mode
+split[5] = Time
+split[6] = Stars
