@@ -9,8 +9,6 @@ class MapPicker:
         self.param = 30 - (week - 1) * 3
         self.TBparam = self.param * 4 + 10 - (week - 1)
 
-        self.mapmaker = MapMaker()
-
         self.DT = [i for i in range(0, self.param)] #Double Time map pool
         self.HR = [i for i in range(self.param, self.param*2)]#No Mod map pool
         self.HD = [i for i in range(self.param*2, self.param*3)]#Hidden map pool
