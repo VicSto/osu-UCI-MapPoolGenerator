@@ -1,8 +1,9 @@
 #Victor Stolle MapPoolInterface.py
 
 from Tkinter import *
-from MapPoolGenerator import MapPoolGenerator
+from MapToHTML import HTMLGenerator
 from PIL import ImageTk, Image
+from MapTocsv import CSVGenerator
 class MapPoolInterface:
 
 
@@ -14,6 +15,9 @@ class MapPoolInterface:
     def __init__(self):
 
         self.counter = 0
+        self.htmlgen = HTMLGenerator()
+        self.allmaps = self.htmlgen.get_maps()
+        self.toCSV = CSVGenerator(self.htmlgen.get_maps(), 'swiss.csv', self.htmlgen.get_sizes())
 
         self.root = Tk()
         self.root.title("osu!UCI Summer League 2015")
@@ -32,39 +36,38 @@ class MapPoolInterface:
         self.scroll.pack(side="right", fill = "y")
         self.text.pack(side = "left", fill = "both", expand = 1)
         self.run_button = Button(self.root, text = "Run", command = self.run_func)
+        self.run_button.config(height = 5, width = 30)
+        self.test_button = Button(self.root, text = "Test", command = self.test_run)
+        self.test_button.config(height = 5, width = 30)
         self.exit_button = Button(self.root, text = "Exit", command = self.byebye)
+        self.exit_button.config(height = 5, width = 30)
 
-        #Week Selector
-        self.textRoot = Toplevel(self.root)
-        self.textRoot.lift(aboveThis = self.root)
-        self.textRoot.grid()
-        self.weekText = Label(self.textRoot, text = "Please Enter the Week Number (1 - 10): ")
-        self.weekEntry = Entry(self.textRoot)
-        self.weekConfirm = Button(self.textRoot, text = "Enter", command=self.config)
-        self.weekEntry.grid(column = 0, row = 1)
-        self.weekConfirm.grid(column = 1, row = 1)
-        self.weekText.grid(row = 0)
-        self.run_button.grid(row = 0, column = 1)
-        self.exit_button.grid(row = 1, column = 2)
-        self.run_button.pack(side = "top")
+
         self.exit_button.pack(side = "bottom")
-        self.panel.pack(side = "top", fill = "both", expand = 1)
 
+        self.panel.pack(side = "bottom", fill = "x", expand = 1)
 
+        self.run_button.pack(side = "left", expand = 1)
+
+        self.test_button.pack(side = "right", expand = 1)
+        
         #Redirects the text from the console to the textbox
         sys.stdout = TextRedirector(self.text, "cout")
 
 
+    
+    def test_run(self):
+        self.text.delete('1.0', END)
+        self.htmlgen.run()
 
-    def config(self):
-        self.week = int(self.weekEntry.get())
-        self.mpg = MapPoolGenerator(self.week)
-        self.textRoot.destroy()
-        
+
     def run_func(self):
-        self.mpg.run()
+        self.text.delete('1.0', END)
+        self.htmlgen.run()
         self.run_button.destroy()
-
+        self.test_button.destroy()
+        self.text.config(state = DISABLED)
+        self.toCSV.write()
 
     def byebye(self):
         self.root.destroy()
@@ -80,9 +83,8 @@ class TextRedirector(object):
         self.tag = tag
 
     def write(self, str):
-        self.widget.configure(state="normal")
         self.widget.insert("end", str, (self.tag,))
-        self.widget.configure(state="disabled")
+
 
 
 
