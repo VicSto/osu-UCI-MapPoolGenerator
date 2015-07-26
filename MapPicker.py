@@ -64,7 +64,7 @@ class MapPicker:
             self.NMmaps.append(self.mapmaker.getNMmaps()[str(i)])
         
     def get_HD(self): return self.HDmaps
-    def set_HD(self):
+    def set_HD(self):   
         for i in self.random_search(self.HD):
             self.HDmaps.append(self.mapmaker.getHDmaps()[str(i)])
 

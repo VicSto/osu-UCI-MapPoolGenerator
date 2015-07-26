@@ -5,7 +5,7 @@ from MapToHTML import HTMLGenerator
 from PIL import ImageTk, Image
 from MapTocsv import CSVGenerator
 class MapPoolInterface:
-
+    
 
     '''
     Usage: m = MapPoolInterface()
@@ -32,8 +32,6 @@ class MapPoolInterface:
         self.text = Text(self.root, bg = "#293134", foreground = "#C0C0C0", font = "Arial")
 
         #sidebar
-        self.scroll = Scrollbar(self.root)
-        self.scroll.pack(side="right", fill = "y")
         self.text.pack(side = "left", fill = "both", expand = 1)
         self.run_button = Button(self.root, text = "Run", command = self.run_func)
         self.run_button.config(height = 5, width = 30)
